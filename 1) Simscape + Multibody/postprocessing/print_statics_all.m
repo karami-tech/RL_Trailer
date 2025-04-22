@@ -1,0 +1,10 @@
+print_statics_tractor_semitrailer
+print_statics_truck_trailer
+print_statics_truck_dbtrailer
+print_statics_LZV_A
+print_statics_LZV_B
+print_statics_LZV_C
+print_statics_LZV_D
+print_statics_LZV_E
+print_statics_LZV_F
+print_statics_LZV_G

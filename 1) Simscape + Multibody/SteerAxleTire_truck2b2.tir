@@ -1,0 +1,156 @@
+[MDI_HEADER]
+FILE_TYPE                ='tir'
+FILE_VERSION             =3.0
+FILE_FORMAT              ='ASCII'
+!
+! TIRE_VERSION :      MF-Tyre/MF-Swift 6.1
+! MF-TOOL TEMPLATE :  TNO_mfswift61          $Revision: 1.2 $
+! COMMENT :           Tire                    315/80 R22.5(steering axle)
+! COMMENT :           Manufacturer            Goodyear
+! DATESTAMP :         15 okt 2008, 19:22:22
+!
+$----------------------------------------------------------------units
+[UNITS]
+LENGTH                   ='meter'
+FORCE                    ='newton'
+ANGLE                    ='radians'
+MASS                     ='kg'
+TIME                     ='second'
+$----------------------------------------------------------------model
+[MODEL]
+FITTYP                   = 61                $Magic Formula Version number             
+TYRESIDE                 ='Left'
+LONGVL                   = 16.7              $Nominal speed         
+VXLOW                    = 1                 $Lower boundary of slip calculation      
+ROAD_INCREMENT           = 0.01              $Increment in road sampling
+ROAD_DIRECTION           = 1                 $Direction of travelled distance 
+!
+! The next lines are only used by ADAMS and ignored by other MBS codes
+!
+! USE_MODE specifies the type of calculation performed:
+!       0: Fz only, no Magic Formula evaluation
+!       1: Fx,My only
+!       2: Fy,Mx,Mz only
+!       3: Fx,Fy,Mx,My,Mz uncombined force/moment calculation
+!       4: Fx,Fy,Mx,My,Mz combined force/moment calculation
+!       5: Fx,Fy,Mx,My,Mz combined force/moment calculation + turnslip
+!      +0: steady state behaviour
+!     +10: including relaxation behaviour
+!     +20: including relaxation behaviour (nonlinear)
+!     +30: including rigid ring dynamics
+!    +100: smooth road contact
+!    +200: smooth road contact (circular cross section, motorcycles)
+!    +400: road contact for 2D roads (using travelled distance)
+!    +500: road contact for 3D roads
+!
+!  example: USE_MODE = 434 implies:
+!    -combined slip 
+!    -rigid ring dynamics
+!    -road contact for 2D roads
+!
+PROPERTY_FILE_FORMAT     ='USER'
+USER_SUB_ID              = 815
+N_TIRE_STATES            = 4
+USE_MODE                 = 114               $Tyre use mode switch (ADAMS only)
+HMAX_LOCAL               = 2.5E-4            $Local integration time step (ADAMS only)
+TIME_SWITCH_INTEG        = 0.1               $Time when local integrator is activated (ADAMS only)
+$-----------------------------------------------------------dimensions
+[DIMENSION]
+UNLOADED_RADIUS          = 0.548             $Free tyre radius         
+WIDTH                    = 0.318             $Nominal section width of the tyre         
+RIM_RADIUS               = 0.286             $Nominal rim radius
+RIM_WIDTH                = 0.318             $Rim width         
+ASPECT_RATIO             = 0.8               $Nominal aspect ratio
+$-------------------------------------------------operating conditions
+[OPERATING_CONDITIONS]
+INFLPRES                 = 825000            $Tyre inflation pressure
+NOMPRES                  = 825000            $Nominal tyre inflation pressure
+$--------------------------------------------------------------inertia
+[INERTIA]
+MASS                     = 62.7              $Tyre Mass
+IXX                      = 6.6               $Tyre diametral moment of inertia 
+IYY                      = 11.9              $Tyre polar moment of inertia
+BELT_MASS                = 47.025            $Belt mass
+BELT_IXX                 = 5.61              $Belt diametral moment of inertia
+BELT_IYY                 = 10.115            $Belt polar moment of inertia
+GRAVITY                  = -9.81             $Gravity acting on belt in Z direction
+$--------------------------------------------------------------vertical
+[VERTICAL]
+FNOMIN                   = 50000             $Nominal wheel load
+VERTICAL_STIFFNESS       = 1190000           $Tyre vertical stiffness         
+VERTICAL_DAMPING         = 500               $Tyre vertical damping         
+$-------------------------------------------------------------structural
+[STRUCTURAL]
+LONGITUDINAL_STIFFNESS   = 1500000           $Tyre overall longitudinal stiffness
+LATERAL_STIFFNESS        = 450000            $Tyre overall lateral stiffness
+$--------------------------------------------------------contact_patch
+[CONTACT_PATCH]
+ELLIPS_SHIFT             = 0.8               $Scaling of distance between front and rear ellipsoid
+ELLIPS_LENGTH            = 1                 $Semi major axis of ellipsoid
+ELLIPS_HEIGHT            = 1                 $Semi minor axis of ellipsoid 
+ELLIPS_ORDER             = 1.8               $Order of ellipsoid 
+ELLIPS_NWIDTH            = 10                $Number of parallel ellipsoids 
+ELLIPS_NLENGTH           = 10                $Number of ellipsoids at sides of contact patch 
+$---------------------------------------------inflation_pressure_range
+[INFLATION_PRESSURE_RANGE]
+PRESMIN                  = 600000            $Minimum valid tyre inflation pressure         
+PRESMAX                  = 1000000           $Minimum valid tyre inflation pressure         
+$-------------------------------------------------vertical_force_range
+[VERTICAL_FORCE_RANGE]
+FZMIN                    = 100               $Minimum allowed wheel load         
+FZMAX                    = 100000            $Maximum allowed wheel load         
+$------------------------------------------------------long_slip_range
+[LONG_SLIP_RANGE]
+KPUMIN                   = -1.5              $Minimum valid wheel slip         
+KPUMAX                   = 1.5               $Maximum valid wheel slip         
+$-----------------------------------------------------slip_angle_range
+[SLIP_ANGLE_RANGE]
+ALPMIN                   = -1.5              $Minimum valid slip angle         
+ALPMAX                   = 1.5               $Maximum valid slip angle         
+$-----------------------------------------------inclination_slip_range
+[INCLINATION_ANGLE_RANGE]
+CAMMIN                   = -0.17453          $Minimum valid camber angle         
+CAMMAX                   = 0.17453           $Maximum valid camber angle         
+$--------------------------------------------------------------scaling
+[SCALING_COEFFICIENTS]
+LMUX                     = 1                 $Scale factor of Fx peak friction coefficient         
+LKX                      = 1                 $Scale factor of Fx slip stiffness         
+LMUY                     = 1                 $Scale factor of Fy peak friction coefficient         
+LKY                      = 1                 $Scale factor of Fy cornering stiffness         
+LKYC                     = 1                 $Scale factor of Fy camber stiffness         
+LKZC                     = 1                 $Scale factor of Mz camber stiffness         
+LTR                      = 1                 $Scale factor of Peak of pneumatic trail         
+LMX                      = 1                 $Scale factor of Mx overturning moment         
+LMY                      = 1                 $Scale factor of rolling resistance torque         
+$---------------------------------------------------------longitudinal
+[LONGITUDINAL_COEFFICIENTS]
+PCX1                     = 1.6               $Shape factor Cfx for longitudinal force         
+PDX1                     = 0.75              $Longitudinal friction Mux at Fznom         
+PDX2                     = -0.05             $Variation of friction Mux with load         
+PKX1                     = 15                $Longitudinal slip stiffness Kfx/Fz at Fznom         
+$--------------------------------------------------------------lateral
+[LATERAL_COEFFICIENTS]
+PCY1                     = 1.3               $Shape factor Cfy for lateral forces         
+PDY1                     = 0.7               $Lateral friction Muy         
+PDY2                     = -0.1              $Variation of friction Muy with load         
+PEY1                     = 0.15126           $Lateral curvature Efy at Fznom         
+PKY1                     = -7.702            $Maximum value of stiffness Kfy/Fznom         
+PKY2                     = 2.13              $Load at which Kfy reaches maximum value         
+PKY4                     = 2                 $Curvature of stiffness Kfy         
+PKY6                     = -0.1235           $Fy camber stiffness factor         
+PVY3                     = -0.2              $Variation of shift Svy/Fz with camber         
+$---------------------------------------------------rolling resistance
+[ROLLING_COEFFICIENTS]
+QSY1                     = 0.0065            $Rolling resistance torque coefficient         
+QSY7                     = 0.9               $Rolling resistance torque coefficient load dependency  
+QSY8                     = -0.2              $Rolling resistance torque coefficient pressure dependency         
+$-------------------------------------------------------------aligning
+[ALIGNING_COEFFICIENTS]
+QBZ1                     = 4.957             $Trail slope factor for trail Bpt at Fznom         
+QBZ2                     = -0.2418           $Variation of slope Bpt with load         
+QBZ9                     = 10                $Factor for scaling factors of slope factor Br of Mzr         
+QCZ1                     = 1                 $Shape factor Cpt for pneumatic trail         
+QDZ1                     = 0.09866           $Peak trail Dpt = Dpt*(Fz/Fznom*R0)         
+QDZ2                     = -0.025            $Variation of peak Dpt with load         
+QDZ8                     = -0.037244         $Variation of peak factor Dmr with camber         
+QEZ1                     = -15               $Trail curvature Ept at Fznom           
